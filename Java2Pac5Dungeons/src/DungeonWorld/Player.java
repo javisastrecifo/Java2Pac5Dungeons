@@ -15,7 +15,7 @@ public class Player extends Character {
 
 	@Override
 	public String toString() {
-		return "Player " + super.toString() + "\n";
+		return getIcon() + " " + super.toString();
 	}
 	
 }

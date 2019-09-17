@@ -23,34 +23,33 @@ public class Map {
 		for (int i = 0; i < this.vampires; i++) {
 			elements.getList().add(elements.createVampire(this.width, this.height));
 		}
-		System.out.println(elements.getList());
-		printMap(elements);
 	}
 
-	public void printMap(ElementsDB elements) {
-		// print each point checking the character's positions
-		String[][] gameGrid = new String[getWidth()][getHeight()];
-		for (int wid = 0; wid < getHeight(); wid++) {
-		
-			for (int heig = 0; heig < getHeight(); heig++) {
-				
-				for (int character = 0; character < elements.getList().size(); character++) {
-					
-					if ((elements.getList().get(character).getX() == wid)
-							&& (elements.getList().get(character).getY() == heig)) {
-						
-						gameGrid[wid][heig] = elements.getList().get(character).getIcon();
-						
-						
-					} else {
-						gameGrid[wid][heig] = ".";
-					}
+	public void print(ElementsDB elements) {
+		elements.printList();
+		System.out.println();
 
+		String[][] gameGrid = new String[getWidth()][getHeight()];
+
+		// fill each point checking the character's positions
+		for (int wid = 0; wid < getWidth(); wid++) {
+			for (int heig = 0; heig < getHeight(); heig++) {
+				if (elements.isThereAnybody(wid, heig)) {
+					gameGrid[wid][heig] = elements.getCharacter(elements.whoIsIt(wid, heig)) + " ";
+				} else {
+					gameGrid[wid][heig] = "· ";
 				}
 			}
-
 		}
-		System.out.print(gameGrid[0][0]);
+
+		// print the Array, row by row
+		for (int c = 0; c < getHeight(); c++) {
+			for (int r = 0; r < getWidth(); r++) {
+
+				System.out.print(gameGrid[r][c]);
+			}
+			System.out.println();
+		}
 	}
 
 	public int getWidth() {
@@ -65,4 +64,11 @@ public class Map {
 		return vampires;
 	}
 
+	public int getCounter() {
+		return counter;
+	}
+	
+	public void reduceCounter() {
+		this.counter--;
+	}
 }

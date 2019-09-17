@@ -20,13 +20,19 @@ public abstract class Character {
 		return this.y;
 	}
 	
-	public String getIcon() {
-		return this.icon;
+	public void setX(int x) {
+		this.x = x;
 	}
+	
+	public void setY(int y) {
+		this.y = y;
+	}
+	
+	public abstract String getIcon();
 
 	@Override
 	public String toString() {
-		return "Character [x=" + x + ", y=" + y + "]";
+		return x + " " + y;
 	}
 	
 	
