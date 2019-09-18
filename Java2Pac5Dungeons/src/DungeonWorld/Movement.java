@@ -2,16 +2,16 @@ package DungeonWorld;
 
 public class Movement {
 
-	public static void movePlayer(String command, ElementsDB elements, Map gameMap) {
+	public static void movePlayer(String command, Map gameMap) {
 
 		int currentX = 0;
 		int currentY = 0;
-		Character player = elements.getList().get(0);
+		Character player = gameMap.getElements().getList().get(0);
 
 		for (int m = 0; m < command.length(); m++) {
 
-			currentX = elements.getList().get(0).getX();
-			currentY = elements.getList().get(0).getY();
+			currentX = gameMap.getElements().getList().get(0).getX();
+			currentY = gameMap.getElements().getList().get(0).getY();
 
 			if (command.charAt(m) == 'a') {
 				if (checkPosition(player.getX(), -1, gameMap.getWidth())) {

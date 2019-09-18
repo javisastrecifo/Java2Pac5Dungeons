@@ -6,9 +6,8 @@ public class UI {
 
 	public static void start() {
 		Scanner reader = new Scanner(System.in);
-		ElementsDB elements = new ElementsDB();
 		Map gameMap = new Map(10, 10, 4, 15, false);
-		gameMap.start(elements);
+		gameMap.start();
 
 		System.out.println("VAMPIRE DUNGEON GAME\n********************");
 		String command = "";
@@ -18,7 +17,7 @@ public class UI {
 				break;
 			}
 			System.out.println("\nMovements: " + gameMap.getCounter() + "\n");
-			gameMap.print(elements);
+			gameMap.print();
 
 			System.out.print("\nInsert movements: ");
 			command = reader.nextLine();
@@ -26,7 +25,7 @@ public class UI {
 			if (!checkInPut(command)) {
 
 			} else {
-				Movement.movePlayer(command, elements, gameMap);
+				Movement.movePlayer(command, gameMap);
 			}
 		}
 

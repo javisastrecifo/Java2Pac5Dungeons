@@ -1,14 +1,13 @@
 package DungeonWorld;
 
-import java.util.Arrays;
-
 public class Map {
 
 	private int width;
 	private int height;
 	private int vampires;
 	private boolean vampiresMove;
-	public int counter;
+	private int counter;
+	private ElementsDB elements;
 
 	public Map(int width, int height, int vampires, int counter, boolean movement) {
 		this.width = width;
@@ -16,17 +15,18 @@ public class Map {
 		this.vampires = vampires;
 		this.vampiresMove = movement;
 		this.counter = counter;
+		this.elements = new ElementsDB();
 	}
 
-	public void start(ElementsDB elements) {
-		elements.getList().add(elements.createPlayer());
+	public void start() {
+		this.elements.getList().add(elements.createPlayer());
 		for (int i = 0; i < this.vampires; i++) {
-			elements.getList().add(elements.createVampire(this.width, this.height));
+			this.elements.getList().add(this.elements.createVampire(this.width, this.height));
 		}
 	}
 
-	public void print(ElementsDB elements) {
-		elements.printList();
+	public void print() {
+		this.elements.printList();
 		System.out.println();
 
 		String[][] gameGrid = new String[getWidth()][getHeight()];
@@ -70,5 +70,9 @@ public class Map {
 	
 	public void reduceCounter() {
 		this.counter--;
+	}
+	
+	public ElementsDB getElements() {
+		return this.elements;
 	}
 }
