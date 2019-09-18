@@ -7,8 +7,12 @@ public class Movement {
 
 	public static void turnMovement(String command, Map gameMap) {
 
-		moveVampires(gameMap);
+		moveEnemies(gameMap, 1);
+		movePlayer(command, gameMap);
 
+	}
+
+	public static void movePlayer(String command, Map gameMap) {
 		Character player = gameMap.getCharacterList().getList().get(0);
 		int currentX = player.getX();
 		int currentY = player.getY();
@@ -39,7 +43,7 @@ public class Movement {
 			player.setX(currentX);
 			player.setY(currentY);
 
-			if (isThereAnyCreature(currentX, currentY, gameMap)) {
+			if (isThereAnyEnemy(currentX, currentY, gameMap)) {
 				gameMap.getCharacterList().killCharacter(whichCreature(currentX, currentY, gameMap));
 				gameMap.reduceVampire();
 			}
@@ -48,7 +52,7 @@ public class Movement {
 		gameMap.reduceCounter();
 	}
 
-	public static boolean isThereAnyCreature(int givenX, int givenY, Map gameMap) {
+	public static boolean isThereAnyEnemy(int givenX, int givenY, Map gameMap) {
 
 		ArrayList<Character> list = gameMap.getCharacterList().getList();
 
@@ -80,40 +84,48 @@ public class Movement {
 		}
 	}
 
-	public static void moveVampires(Map gameMap) {
+	public static void moveEnemies(Map gameMap, int steps) {
 		ArrayList<Character> list = gameMap.getCharacterList().getList();
 		Random rand = new Random();
 		int randomOption = 0;
-		int vampireX = 0;
-		int vampireY = 0;
+		int enemyX = 0;
+		int enemyY = 0;
 
 		for (int i = 1; i < list.size(); i++) {
-			randomOption = rand.nextInt(4);
-			vampireX = list.get(i).getX();
-			vampireY = list.get(i).getY();
 
-			if (randomOption == 0) {
+			for (int j = 0; j < list.get(i).getSteps(); j++) {
 
-			} else if (randomOption == 1) { // 1 LEFT
-				if ((!isGoingOutOfMap(vampireX, -1, gameMap.getWidth()) && (isThereAnyCreature(vampireX, vampireY, gameMap)))) {
-					vampireX = vampireX - 1;
+				randomOption = rand.nextInt(4);
+				enemyX = list.get(i).getX();
+				enemyY = list.get(i).getY();
+
+				if (randomOption == 0) { // STAY IN THE SAME PLACE
+
+				} else if (randomOption == 1) { // 1 LEFT
+					if ((!isGoingOutOfMap(enemyX, -1, gameMap.getWidth())
+							&& (!isThereAnyEnemy(enemyX - 1, enemyY, gameMap)))) {
+						enemyX = enemyX - 1;
+					}
+				} else if (randomOption == 2) { // 1 RIGHT
+					if ((!isGoingOutOfMap(enemyX, 1, gameMap.getWidth())
+							&& (!isThereAnyEnemy(enemyX + 1, enemyY, gameMap)))) {
+						enemyX = enemyX + 1;
+					}
+				} else if (randomOption == 3) { // 1 UP
+					if ((!isGoingOutOfMap(enemyY, 1, gameMap.getHeight())
+							&& (!isThereAnyEnemy(enemyX, enemyY + 1, gameMap)))) {
+						enemyY = enemyY + 1;
+					}
+				} else if (randomOption == 4) { // 1 DOWN
+					if ((!isGoingOutOfMap(enemyY, -1, gameMap.getHeight())
+							&& (!isThereAnyEnemy(enemyX, enemyY - 1, gameMap)))) {
+						enemyY = enemyY - 1;
+					}
 				}
-			} else if (randomOption == 2) { // 1 RIGHT
-				if ((!isGoingOutOfMap(vampireX, -1, gameMap.getWidth()) && (isThereAnyCreature(vampireX, vampireY, gameMap)))) {
-					vampireX = vampireX + 1;
-				}
-			} else if (randomOption == 3) { // 1 UP
-				if ((!isGoingOutOfMap(vampireX, -1, gameMap.getWidth()) && (isThereAnyCreature(vampireX, vampireY, gameMap)))) {
-					vampireY = vampireY - 1;
-				}
-			} else if (randomOption == 4) { // 1 DOWN
-				if ((!isGoingOutOfMap(vampireX, -1, gameMap.getWidth()) && (isThereAnyCreature(vampireX, vampireY, gameMap)))) {
-					vampireY = vampireY - 1;
-				}
+
+				list.get(i).setX(enemyX);
+				list.get(i).setY(enemyY);
 			}
-
-			list.get(i).setX(vampireX);
-			list.get(i).setY(vampireY);
 
 		}
 	}

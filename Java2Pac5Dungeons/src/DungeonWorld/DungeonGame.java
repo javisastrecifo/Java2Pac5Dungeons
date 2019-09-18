@@ -9,7 +9,7 @@ public class DungeonGame {
 
 	public DungeonGame() {
 		this.reader = new Scanner(System.in);
-		this.gameMap = new Map(10, 10, 4, 15, true);
+		this.gameMap = new Map(10, 10, 6, 15, true);
 	}
 
 	public void start() {
