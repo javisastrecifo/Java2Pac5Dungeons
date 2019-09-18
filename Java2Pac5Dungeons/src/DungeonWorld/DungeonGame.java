@@ -9,7 +9,7 @@ public class DungeonGame {
 
 	public DungeonGame() {
 		this.reader = new Scanner(System.in);
-		this.gameMap = new Map(10, 10, 6, 15, true);
+		this.gameMap = new Map(10, 10, 6, 15);
 	}
 
 	public void start() {
@@ -63,10 +63,10 @@ public class DungeonGame {
 	public boolean checkGameStatus() {
 		if (this.gameMap.getCounter() < 0) {
 			this.gameMap.getCharacterList().killCharacter(0);
-			System.out.println("*** YOU LOST! ***\n\n\n");
+			System.out.println("\n\n*** YOU LOST! ***\n\n");
 			return false;
 		} else if (this.gameMap.getVampires() == 0) {
-			System.out.println("*** YOU WIN!! ***\n\n\n");
+			System.out.println("\n\n*** YOU WIN!! ***\n\n");
 			return false;
 		} else {
 			return true;

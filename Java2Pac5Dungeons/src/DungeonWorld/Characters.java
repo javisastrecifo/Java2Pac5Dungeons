@@ -13,7 +13,7 @@ public class Characters {
 		this.moves = new Movement(this.characterList);
 	}
 
-	public Vampire createVampire(int widthLimit, int heightLimit) {
+	public Character createCharacter(String creatureType, int widthLimit, int heightLimit) {
 		Random rand = new Random();
 
 		while (true) {
@@ -21,9 +21,14 @@ public class Characters {
 			int newY = rand.nextInt(heightLimit);
 
 			if (!isThereAnybody(newX, newY)) {
+				if (creatureType.equals("v")) {
+					Character c = new Vampire(newX, newY);
+					return c;
+				} else if (creatureType.equals("O")) {
+					Character r = new Rock(newX, newY);
+					return r;
+				}
 
-				Vampire v = new Vampire(newX, newY);
-				return v;
 			}
 		}
 	}
@@ -63,14 +68,18 @@ public class Characters {
 
 	public void printList() {
 		for (int i = 0; i < this.characterList.size(); i++) {
-			System.out.println(this.characterList.get(i));
+			if (this.characterList.get(i).getClass() != Vampire.class) {
+
+			} else {
+				System.out.println(this.characterList.get(i));
+			}
 		}
 	}
 
 	public ArrayList<Character> getList() {
 		return this.characterList;
 	}
-	
+
 	public Movement movements() {
 		return this.moves;
 	}

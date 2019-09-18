@@ -1,27 +1,36 @@
 package DungeonWorld;
 
+import java.util.Random;
+
 public class Map {
 
 	private int width;
 	private int height;
 	private int vampires;
-	private boolean vampiresMove;
 	private int counter;
 	private Characters characterList;
+	private int rocks;
 
-	public Map(int width, int height, int vampires, int counter, boolean movement) {
+	public Map(int width, int height, int vampires, int counter) {
+		Random rand = new Random();
+
 		this.width = width;
 		this.height = height;
 		this.vampires = vampires;
-		this.vampiresMove = movement;
 		this.counter = counter;
 		this.characterList = new Characters();
+		this.rocks = rand.nextInt(10 - 3) + 3;
 	}
 
 	public void start() {
-		this.characterList.getList().add(this.characterList.createPlayer());
-		for (int i = 0; i < this.vampires; i++) {
-			this.characterList.getList().add(this.characterList.createVampire(this.width, this.height));
+		this.characterList.getList().add(this.characterList.createPlayer()); // CREATE PLAYER
+
+		for (int i = 0; i < this.vampires; i++) { // CREATE VAMPIRES
+			this.characterList.getList().add(this.characterList.createCharacter("v", this.width, this.height));
+		}
+
+		for (int r = 0; r < this.rocks; r++) {
+			this.characterList.getList().add(this.characterList.createCharacter("O", this.width, this.height));
 		}
 	}
 
@@ -63,7 +72,7 @@ public class Map {
 	public int getVampires() {
 		return vampires;
 	}
-	
+
 	public void reduceVampire() {
 		this.vampires--;
 	}
@@ -71,11 +80,11 @@ public class Map {
 	public int getCounter() {
 		return counter;
 	}
-	
+
 	public void reduceCounter() {
 		this.counter--;
 	}
-	
+
 	public Characters getCharacterList() {
 		return this.characterList;
 	}
