@@ -6,9 +6,11 @@ import java.util.Random;
 public class Characters {
 
 	private ArrayList<Character> characterList;
+	private Movement moves;
 
 	public Characters() {
 		this.characterList = new ArrayList<Character>();
+		this.moves = new Movement(this.characterList);
 	}
 
 	public Vampire createVampire(int widthLimit, int heightLimit) {
@@ -67,5 +69,9 @@ public class Characters {
 
 	public ArrayList<Character> getList() {
 		return this.characterList;
+	}
+	
+	public Movement movements() {
+		return this.moves;
 	}
 }

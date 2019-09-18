@@ -33,8 +33,8 @@ public class DungeonGame {
 			if (!checkInPut(command)) {
 
 			} else {
-				Movement.turnMovement(command, this.gameMap);
-			}
+				this.gameMap.getCharacterList().movements().eachTurn(command, gameMap);
+				}
 		}
 
 	}

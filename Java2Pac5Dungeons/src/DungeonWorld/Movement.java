@@ -4,16 +4,21 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Movement {
+	
+	private ArrayList<Character> characterList;
 
-	public static void turnMovement(String command, Map gameMap) {
+	public Movement (ArrayList<Character> charList) {
+		this.characterList = charList;
+	}
+	
+	public void eachTurn(String command, Map gameMap) {
 
-		moveEnemies(gameMap, 1);
-		movePlayer(command, gameMap);
-
+		gameMap.getCharacterList().movements().moveEnemies(gameMap, 1);
+		gameMap.getCharacterList().movements().movePlayer(command, gameMap);
 	}
 
-	public static void movePlayer(String command, Map gameMap) {
-		Character player = gameMap.getCharacterList().getList().get(0);
+	public void movePlayer(String command, Map gameMap) {
+		Character player =  this.characterList.get(0);
 		int currentX = player.getX();
 		int currentY = player.getY();
 
@@ -84,7 +89,7 @@ public class Movement {
 		}
 	}
 
-	public static void moveEnemies(Map gameMap, int steps) {
+	public void moveEnemies(Map gameMap, int steps) {
 		ArrayList<Character> list = gameMap.getCharacterList().getList();
 		Random rand = new Random();
 		int randomOption = 0;
@@ -128,5 +133,9 @@ public class Movement {
 			}
 
 		}
+	}
+	
+	public ArrayList<Character> getCharacterList (){
+		return this.characterList;
 	}
 }
