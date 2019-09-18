@@ -7,7 +7,7 @@ public class Map {
 	private int vampires;
 	private boolean vampiresMove;
 	private int counter;
-	private ElementsDB elements;
+	private Characters characterList;
 
 	public Map(int width, int height, int vampires, int counter, boolean movement) {
 		this.width = width;
@@ -15,18 +15,18 @@ public class Map {
 		this.vampires = vampires;
 		this.vampiresMove = movement;
 		this.counter = counter;
-		this.elements = new ElementsDB();
+		this.characterList = new Characters();
 	}
 
 	public void start() {
-		this.elements.getList().add(elements.createPlayer());
+		this.characterList.getList().add(this.characterList.createPlayer());
 		for (int i = 0; i < this.vampires; i++) {
-			this.elements.getList().add(this.elements.createVampire(this.width, this.height));
+			this.characterList.getList().add(this.characterList.createVampire(this.width, this.height));
 		}
 	}
 
 	public void print() {
-		this.elements.printList();
+		this.characterList.printList();
 		System.out.println();
 
 		String[][] gameGrid = new String[getWidth()][getHeight()];
@@ -34,8 +34,8 @@ public class Map {
 		// fill each point checking the character's positions
 		for (int wid = 0; wid < getWidth(); wid++) {
 			for (int heig = 0; heig < getHeight(); heig++) {
-				if (elements.isThereAnybody(wid, heig)) {
-					gameGrid[wid][heig] = elements.getCharacter(elements.whoIsIt(wid, heig)) + " ";
+				if (characterList.isThereAnybody(wid, heig)) {
+					gameGrid[wid][heig] = characterList.getCharacter(characterList.whoIsIt(wid, heig)) + " ";
 				} else {
 					gameGrid[wid][heig] = "· ";
 				}
@@ -63,6 +63,10 @@ public class Map {
 	public int getVampires() {
 		return vampires;
 	}
+	
+	public void reduceVampire() {
+		this.vampires--;
+	}
 
 	public int getCounter() {
 		return counter;
@@ -72,7 +76,7 @@ public class Map {
 		this.counter--;
 	}
 	
-	public ElementsDB getElements() {
-		return this.elements;
+	public Characters getCharacterList() {
+		return this.characterList;
 	}
 }

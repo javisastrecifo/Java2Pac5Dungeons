@@ -15,7 +15,7 @@ public class Vampire extends Character {
 
 	@Override
 	public String toString() {
-		return getIcon() + " " + super.toString();
+		return "Vampire " + super.toString();
 	}
 
 }

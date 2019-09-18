@@ -3,7 +3,8 @@ package DungeonWorld;
 public class Main {
 
 	public static void main(String[] args) {
-		UI.start();
+		DungeonGame game = new DungeonGame();
+		game.start();
 	}
 
 }

@@ -3,12 +3,12 @@ package DungeonWorld;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ElementsDB {
+public class Characters {
 
-	private ArrayList<Character> elements;
+	private ArrayList<Character> characterList;
 
-	public ElementsDB() {
-		this.elements = new ArrayList<Character>();
+	public Characters() {
+		this.characterList = new ArrayList<Character>();
 	}
 
 	public Vampire createVampire(int widthLimit, int heightLimit) {
@@ -24,7 +24,10 @@ public class ElementsDB {
 				return v;
 			}
 		}
+	}
 
+	public void killCharacter(int listNumber) {
+		this.characterList.remove(listNumber);
 	}
 
 	public Player createPlayer() {
@@ -33,18 +36,19 @@ public class ElementsDB {
 	}
 
 	public boolean isThereAnybody(int givenX, int givenY) {
-		for (int i = 0; i < this.elements.size(); i++) {
-			if ((this.elements.get(i).getX() == givenX) && (this.elements.get(i).getY() == givenY)) {
+
+		for (int i = 0; i < this.characterList.size(); i++) {
+			if ((this.characterList.get(i).getX() == givenX) && (this.characterList.get(i).getY() == givenY)) {
 				return true;
 			}
 		}
 		return false;
-
 	}
 
 	public int whoIsIt(int givenX, int givenY) {
-		for (int i = 0; i < this.elements.size(); i++) {
-			if ((this.elements.get(i).getX() == givenX) && (this.elements.get(i).getY() == givenY)) {
+
+		for (int i = 0; i < this.characterList.size(); i++) {
+			if ((this.characterList.get(i).getX() == givenX) && (this.characterList.get(i).getY() == givenY)) {
 				return i;
 			}
 		}
@@ -52,20 +56,16 @@ public class ElementsDB {
 	}
 
 	public String getCharacter(int givenIndex) {
-		return this.elements.get(givenIndex).getIcon();
+		return this.characterList.get(givenIndex).getIcon();
 	}
 
-	
-	
-	
-	
 	public void printList() {
-		for (int i = 0; i < this.elements.size(); i++) {
-			System.out.println(this.elements.get(i));
+		for (int i = 0; i < this.characterList.size(); i++) {
+			System.out.println(this.characterList.get(i));
 		}
 	}
 
 	public ArrayList<Character> getList() {
-		return this.elements;
+		return this.characterList;
 	}
 }
