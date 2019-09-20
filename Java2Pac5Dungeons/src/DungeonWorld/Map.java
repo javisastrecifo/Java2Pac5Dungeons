@@ -73,7 +73,7 @@ public class Map {
 		return vampires;
 	}
 
-	public void reduceVampire() {
+	public void reduceVampireCount() {
 		this.vampires--;
 	}
 
